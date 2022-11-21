@@ -7,7 +7,7 @@
   -webkit-text-size-adjust: 100%;
   box-sizing: border-box;
   word-break: break-all;
-  font-family: 'LeferiPoint';
+  font-family: 'LeferiPoint', 'DungGeunMo';
 }
 ::before,
 ::after {
@@ -16,9 +16,8 @@
 
 body {
   line-height: 1.3;
-  font-family: LeferiPoint, Noto, sans-serif;
-  font-weight: 200;
-  font-size: 100px;
+  font-family: DungGeunMo, LeferiPoint, Noto, sans-serif;
+  font-size: 13px;
   letter-spacing: -0.03em;
 }
 article,
