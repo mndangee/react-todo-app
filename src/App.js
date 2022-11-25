@@ -52,15 +52,18 @@ export default class App extends Component {
   addTodoList = e => {
     e.preventDefault(); //클릭시 리로드 방지
 
+    //새로운 할 일 데이터
     let newTodo = {
       id: Date.now(),
       title: this.state.value,
       completed: false,
     };
 
+    //기존 데이터에 새로운 데이터를 추가
     this.setState({ todoData: [...this.state.todoData, newTodo], value: '' });
   };
 
+  //enter키를 눌렀을때 할 일 목록 추가
   handleOnKeyPress = e => {
     if (e.key === 'Enter') {
       this.addTodoList();
