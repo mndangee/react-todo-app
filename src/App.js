@@ -28,14 +28,27 @@ export default class App extends Component {
     cursor: 'pointer',
   };
 
-  getStyle = () => {
+  listStyle = {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '20px 0px',
+    fontSize: '15px',
+    lineHeight: '20px',
+    borderBottom: '1px solid #ccc',
+    TextDecoder: 'none',
+  };
+
+  completedStyle = completed => {
     return {
-      position: 'relative',
-      padding: '20px 0px',
-      fontSize: '15px',
+      display: completed ? 'block' : 'none',
+      padding: '0px 5px',
+      marginLeft: '10px',
+      height: '20px',
+      fontSize: '12px',
+      color: '#fff',
       lineHeight: '20px',
-      borderBottom: '1px solid #ccc',
-      TextDecoder: 'none',
+      backgroundColor: '#6178DC',
     };
   };
 
@@ -70,6 +83,18 @@ export default class App extends Component {
     }
   };
 
+  checkCompleted = id => {
+    let newTodoData = this.state.todoData.map(it => {
+      if (it.id === id) {
+        it.completed = !it.completed;
+      }
+
+      return it;
+    });
+
+    this.setState({ todoData: newTodoData });
+  };
+
   render() {
     return (
       <div className='container'>
@@ -93,13 +118,17 @@ export default class App extends Component {
 
           {/* 할 일 목록 리스트 */}
           {this.state.todoData.map(data => (
-            <div key={data.id} style={this.getStyle()}>
+            <div key={data.id} style={this.listStyle}>
               <input
                 style={{ marginRight: '10px' }}
                 type='checkbox'
                 defaultChecked={data.completed}
+                onClick={() => {
+                  this.checkCompleted(data.id);
+                }}
               />
               {data.title}
+              <div style={this.completedStyle(data.completed)}>완료</div>
               <button
                 style={this.btnStyle}
                 onClick={() => {
