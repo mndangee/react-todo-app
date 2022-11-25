@@ -11,6 +11,7 @@ export default class App extends Component {
       { id: '3', title: '퇴근하기', completed: false },
       { id: '4', title: '잘 자기', completed: false },
     ],
+    value: '',
   };
 
   btnStyle = {
@@ -44,6 +45,28 @@ export default class App extends Component {
     console.log(newTodoData);
   };
 
+  onChange = e => {
+    this.setState({ value: e.target.value });
+  };
+
+  addTodoList = e => {
+    e.preventDefault(); //클릭시 리로드 방지
+
+    let newTodo = {
+      id: Date.now(),
+      title: this.state.value,
+      completed: false,
+    };
+
+    this.setState({ todoData: [...this.state.todoData, newTodo], value: '' });
+  };
+
+  handleOnKeyPress = e => {
+    if (e.key === 'Enter') {
+      this.addTodoList();
+    }
+  };
+
   render() {
     return (
       <div className='container'>
@@ -51,6 +74,21 @@ export default class App extends Component {
           <div className='title'>
             <h1>할 일 목록</h1>
           </div>
+
+          {/* 할 일 목록 입력 폼 */}
+          <form style={{ display: 'flex' }} onSubmit={this.addTodoList}>
+            <input
+              style={{ flex: '1', padding: '5px' }}
+              type='text'
+              name='todo'
+              placeholder='해야 할 일을 입력하세요'
+              value={this.state.value}
+              onChange={this.onChange}
+            />
+            <input type='submit' value='입력' className='btn' />
+          </form>
+
+          {/* 할 일 목록 리스트 */}
           {this.state.todoData.map(data => (
             <div key={data.id} style={this.getStyle()}>
               <input
